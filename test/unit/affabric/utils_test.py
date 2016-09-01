@@ -3,7 +3,7 @@ __author__      = "Joel Dubowy"
 import datetime
 from fabric import api
 
-from pyairfire.fabric import utils
+from affabric import utils
 
 class TestCreateSSHTunnel(object):
 
