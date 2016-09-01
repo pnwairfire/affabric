@@ -1,7 +1,6 @@
 # affabric
 
-This package contains utilities for working with python's datetime
-package.
+This package contains fabric utilities
 
 ***This software is provided for research purposes only. Use at own risk.***
 
@@ -37,7 +36,7 @@ You can run tests with pytest:
 
     py.test
     py.test ./test/unit/affabric/
-    py.test ./test/unit/affabric/test_parsing.py
+    py.test ./test/unit/affabric/test_utils.py
 
 You can also use the ```--collect-only``` option to see a list of all tests.
 
