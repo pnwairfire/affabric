@@ -238,8 +238,9 @@ class prepare_code:
     """Context manager that clones repo on enter and deletes it on exit.
     """
 
-    def __init__(self, git_repo_url):
+    def __init__(self, git_repo_url, skip_cleanup=False):
         self.git_repo_url = git_repo_url
+        self.skip_cleanup = skip_cleanup
 
     def __enter__(self):
         self.repo_path_name = self.get_code()
@@ -272,4 +273,6 @@ class prepare_code:
     def clean_up(self):
         """Removes repo
         """
-        api.sudo('rm -rf %s*' % (self.repo_path_name))
+        if not self.skip_cleanup:
+            with api.settings(warn_only=True):
+                r = api.sudo('rm -rf %s*' % (self.repo_path_name))
