@@ -238,9 +238,10 @@ class prepare_code:
     """Context manager that clones repo on enter and deletes it on exit.
     """
 
-    def __init__(self, git_repo_url, skip_cleanup=False):
+    def __init__(self, git_repo_url, skip_cleanup=False, prompt_once=False):
         self.git_repo_url = git_repo_url
         self.skip_cleanup = skip_cleanup
+        self.prompt_once = prompt_once
 
     def __enter__(self):
         self.repo_path_name = self.get_code()
@@ -257,6 +258,9 @@ class prepare_code:
     def get_code(self):
         code_version = env_var_or_prompt_for_input('CODE_VERSION',
             'Git tag, branch, or commit to deploy', 'master')
+        if self.prompt_once:
+            os.environ['CODE_VERSION'] = code_version
+
         repo_dir_name = uuid.uuid1()
 
         with api.cd('/tmp/'):
